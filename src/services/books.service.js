@@ -19,6 +19,7 @@ function makeBooksService() {
     formData.append('name', book.name)
     formData.append('categoryName', book.categoryName)
     formData.append('price', book.price)
+    formData.append('description', book.description)
     // Thêm các trường thông tin sách khác nếu cần
 
     // Lấy access_token từ Local Storage
@@ -46,6 +47,7 @@ function makeBooksService() {
     formData.append('name', book.name)
     formData.append('categoryName', book.categoryName)
     formData.append('price', book.price)
+    formData.append('description', book.description)
     // Thêm các trường thông tin sách khác nếu cần
 
     // Lấy access_token từ Local Storage
@@ -71,6 +73,7 @@ function makeBooksService() {
   async function getBook(id) {
     return await fetch(`${baseUrl}/${id}`).then((res) => res.json())
   }
+
   async function getBooks(page, limit = 8) {
     let url = `${baseUrl}?page=${page}&limit=${limit}`
     return await fetch(url).then((res) => {

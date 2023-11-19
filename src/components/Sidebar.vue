@@ -20,7 +20,7 @@
         <ul class="menu-links">
           <!-- Home -->
           <li class="nav-links">
-            <a href="#">
+            <a href="http://localhost:5173/">
               <i class="bx bx-home-alt icon"></i>
               <span class="text nav-text">Home</span>
             </a>
@@ -34,7 +34,7 @@
           </li>
           <!-- Profile -->
           <li class="nav-links">
-            <a href="#">
+            <a href="http://localhost:5173/user/">
               <i class="bx bx-user icon"></i>
               <span class="text nav-text">Profile</span>
             </a>

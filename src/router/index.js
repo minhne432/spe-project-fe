@@ -2,10 +2,9 @@
 import { createRouter, createWebHistory } from 'vue-router'
 
 // Import các component Vue đã tạo hoặc sẽ sử dụng.
-import Home from '../views/ShopIndex.vue'
+import Home from '../views/AdminPage.vue'
 
-
-  // Định nghĩa các route của ứng dụng.
+// Định nghĩa các route của ứng dụng.
 const routes = [
   {
     // Địa chỉ URL mặc định (gốc) của trang.
@@ -30,8 +29,12 @@ const routes = [
   {
     path: '/books/add',
     name: 'book.add',
-    component: () => import('@/views/AddBook.vue'),
-    
+    component: () => import('@/views/AddBook.vue')
+  },
+  {
+    path: '/user/',
+    name: 'book.add',
+    component: () => import('@/views/UserProfile.vue')
   },
   {
     // Địa chỉ URL không khớp với bất kỳ route nào ở trên.
@@ -44,12 +47,11 @@ const routes = [
   }
 ]
 
-
 // Tạo một instance của Router sử dụng createRouter.
 const router = createRouter({
   // Sử dụng createWebHistory để tạo router sử dụng HTML5 History API.
   history: createWebHistory(import.meta.env.BASE_URL),
   routes
-});
+})
 // Xuất router để sử dụng trong ứng dụng Vue.
 export default router
