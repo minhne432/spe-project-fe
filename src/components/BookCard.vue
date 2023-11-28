@@ -1,0 +1,99 @@
+<template>
+    <div class="book-details">
+        <div class="details">
+            <div>
+                <strong>Tên sách:</strong> {{ bookdetails.name }}
+            </div>
+            <div>
+                <strong>Thể loại:</strong> {{ bookdetails.categoryName }}
+            </div>
+            <div>
+                <strong>Mô tả:</strong> {{ bookdetails.description }}
+            </div>
+            <div>
+                <strong>Giá:</strong> {{ bookdetails.price }}
+            </div>
+        </div>
+        <div class="image-preview" v-if="bookdetails.thumbnail">
+            <img :src="bookdetails.thumbnail" alt="Product Image" />
+        </div>
+        <form @submit.prevent="submitOrder">
+          <label for="quantity">Số lượng:</label>
+          <input type="number" id="quantity" v-model="quantity" min="1" required>
+          <button type="submit">Thêm vào giỏ hàng</button>
+        </form>
+    </div>
+</template>
+
+<script setup>
+import { defineProps, ref } from 'vue';
+
+const props = defineProps({
+    initialBook: { type: Object, required: true },
+});
+
+
+const bookdetails = ref({ ...props.initialBook });
+</script>
+
+<style scoped>
+.book-details {
+    border: 1px solid #ccc;
+    padding: 15px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+
+.details {
+    margin-bottom: 15px;
+}
+
+.details div {
+    margin-bottom: 5px;
+}
+
+.image-preview {
+    max-width: 150px;
+    margin-top: 10px;
+}
+
+.image-preview img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 5px;
+}
+
+form {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+label {
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+input[type="number"] {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 100%;
+  margin-bottom: 10px;
+  box-sizing: border-box;
+}
+
+button[type="submit"] {
+  padding: 10px 15px;
+  border: none;
+  border-radius: 4px;
+  background-color: #007bff;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button[type="submit"]:hover {
+  background-color: #0056b3;
+}
+</style>

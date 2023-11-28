@@ -17,9 +17,9 @@
                         <!-- product wrapper -->
                         <div class="product-wrapper">
                             <div v-for="book in filteredProducts.value" :key="book.id" class="product-list"
-                                @click="() => goToEditBook(book)">
+                                @click="() => goToDetailsBook(book)">
                                 <router-link :to="{
-                                    name: 'book.edit',
+                                    name: 'book.details',
                                     params: { id: book.id },
                                 }"></router-link>
                                 <img class="product-img" :src="book.thumbnail" />
@@ -93,9 +93,9 @@ const handlePageChange = (newPage) => {
 
 const $router = useRouter();
 
-const goToEditBook = (book) => {
+const goToDetailsBook = (book) => {
     $router.push({
-        name: 'book.edit',
+        name: 'book.details',
         params: { id: book.id },
         query: { book: JSON.stringify(book) }
     })

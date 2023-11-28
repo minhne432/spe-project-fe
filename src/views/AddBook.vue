@@ -1,27 +1,12 @@
 <script setup>
 import { ref } from "vue";
-// import { useRouter, useRoute } from "vue-router";
+
 import BookForm from "@/components/BookForm.vue";
 import booksService from "@/services/books.service";
 import SideBar from '@/components/SideBar.vue';
-// const props = defineProps(["bookId"]);
-// const $router = useRouter();
-// const $route = useRoute();
+
 const book = ref(null);
 const message = ref("");
-
-
-
-// async function getBook(id) {
-//   try {
-//     const response = await booksService.getBook(id);
-//     // Check if the response is valid JSON
-//     const bookData = JSON.parse(response);
-//     book.value = bookData;
-//   } catch (error) {
-//     console.error('Error fetching book:', error);
-//   }
-// }
 
 
 
@@ -36,7 +21,6 @@ await booksService.createBook(newBook);
 }
 
 
-// getBook(props.bookId);
 
 </script>
 

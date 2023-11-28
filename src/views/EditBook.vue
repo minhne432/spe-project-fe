@@ -35,7 +35,7 @@ async function onDeleteBook(id) {
   if (confirm("Bạn muốn xóa Sách này?")) {
     try {
       await booksService.deleteBook(id);
-      $router.push({ name: "Home" });
+      $router.push({ name: "admin" });
     } catch (error) {
       console.log(error);
     }
@@ -79,9 +79,5 @@ getBook(props.bookId);
   color: #888;
 }
 
-/* Nếu bạn muốn thêm style cho BookForm */
-/* .book-form {
-  // Thêm CSS cho form ở đây
-} */
 
 </style>

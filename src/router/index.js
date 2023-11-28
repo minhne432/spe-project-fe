@@ -2,7 +2,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 
 // Import các component Vue đã tạo hoặc sẽ sử dụng.
-import Home from '../views/AdminPage.vue'
+import Home from '../views/ShopPage.vue'
 
 // Định nghĩa các route của ứng dụng.
 const routes = [
@@ -16,8 +16,16 @@ const routes = [
   },
   {
     // Địa chỉ URL '/login'.
+    path: '/admin',
+    name: 'admin',
+    // Sử dụng component Login khi địa chỉ này được truy cập.
+    component: () => import('@/views/AdminPage.vue')
+  },
+  {
+    // Địa chỉ URL '/login'.
     path: '/login',
     // Sử dụng component Login khi địa chỉ này được truy cập.
+    name: 'login',
     component: () => import('@/views/Login.vue')
   },
   {
@@ -27,13 +35,19 @@ const routes = [
     props: (route) => ({ bookId: route.params.id })
   },
   {
+    path: '/books/details/:id',
+    name: 'book.details',
+    component: () => import('@/views/BookDetails.vue'),
+    props: (route) => ({ bookId: route.params.id })
+  },
+  {
     path: '/books/add',
     name: 'book.add',
     component: () => import('@/views/AddBook.vue')
   },
   {
     path: '/user/',
-    name: 'book.add',
+    name: 'user.home',
     component: () => import('@/views/UserProfile.vue')
   },
   {

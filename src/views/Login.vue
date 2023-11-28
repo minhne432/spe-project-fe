@@ -143,16 +143,18 @@ const login = async () => {
             localStorage.setItem('id', data.responseData.id);
             localStorage.setItem('phone_number', data.responseData.phone_number);
             localStorage.setItem('address', data.responseData.address);
+            localStorage.setItem('role_id', data.responseData.role_id);
+            localStorage.setItem('isLoggedIn', 1);
             const userRole = data.responseData.role_id;
             console.log(userRole)
             
             // Dựa trên vai trò, chuyển hướng tới các trang khác nhau
             if (userRole == 2) {
                 // Chuyển hướng tới trang admin
-                router.push('/'); // Sử dụng router của bạn để chuyển hướng
+                router.push('/admin'); // Sử dụng router của bạn để chuyển hướng
             } else if (userRole == 1) {
                 // Chuyển hướng tới trang người dùng thông thường
-                router.push('/user');
+                router.push('/');
             }
             
 

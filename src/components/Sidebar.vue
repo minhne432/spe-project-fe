@@ -8,7 +8,6 @@
 
         <div class="text header-text">
           <span class="name">Bookstore</span>
-          <span class="user-name">Admin</span>
         </div>
       </div>
 
@@ -20,10 +19,17 @@
         <ul class="menu-links">
           <!-- Home -->
           <li class="nav-links">
-            <a href="http://localhost:5173/">
-              <i class="bx bx-home-alt icon"></i>
-              <span class="text nav-text">Home</span>
-            </a>
+            <!-- <a :href="goToHome()"> -->
+              <router-link v-if="shouldShowLink" :to="{name:'Home'}">
+                            <i class="bx bx-home-alt icon"></i>
+                <span class="text nav-text">Home</span>
+              </router-link>
+                <router-link v-if="!shouldShowLink" :to="{ name: 'admin' }">
+                              <i class="bx bx-home-alt icon"></i>
+                  <span class="text nav-text">Home</span>
+                </router-link>
+
+            <!-- </a> -->
           </li>
           <!-- Notification -->
           <li class="nav-links">
@@ -51,25 +57,60 @@
 
       <!-- Logout section -->
       <div class="footer">
-        <li class="">
-          <a href="/Login">
-            <i class="bx bx-log-out icon"></i>
-            <span class="text nav-text">Logout</span>
-          </a>
-        </li>
+      <li v-if="!isLoggedIn">
+        <router-link :to="{name:'login'}">
+          <i class="bx bx-log-in icon"></i>
+          <span class="text nav-text">Login</span>
+        </router-link>
+      </li>
+
+      <!-- Logout button -->
+      <li v-if="isLoggedIn">
+        <button @click="logout()" class="router-like-button">
+          <i class="bx bx-log-in icon"></i>
+          <span class="text nav-text">Logout</span>
+        </button>
+      </li>
       </div>
     </div>
   </nav>
 </template>
 
 <script setup>
-import { ref } from 'vue'
-
+import { computed, ref } from 'vue'
+import { useRouter } from 'vue-router';
+const router = useRouter();
 const isSidebarOpen = ref(true)
 
 const toggleSidebar = () => {
   isSidebarOpen.value = !isSidebarOpen.value
 }
+
+const  shouldShowLink = computed(()=>{
+  const role_id = localStorage.getItem('role_id')!=2 ? true : false;
+  return role_id;
+})
+
+
+const isLoggedIn = ref(localStorage.getItem('isLoggedIn'));
+
+const logout = () => {
+
+  localStorage.removeItem('access_token');
+  localStorage.removeItem('fullname');
+  localStorage.removeItem('id');
+  localStorage.removeItem('phone_number');
+  localStorage.removeItem('address');
+  localStorage.removeItem('role_id');
+  localStorage.removeItem('isLoggedIn');
+  router.push({name:'Home'})
+
+}
+
+
+
+
+
 </script>
 
 <style>
@@ -199,5 +240,18 @@ header .image-text .header-text {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+}
+
+.router-like-button {
+  border: none;
+  background: none;
+  cursor: pointer;
+  text-decoration: none;
+  color: inherit;
+  padding: 0;
+  font: inherit;
+  outline: inherit;
+  display: flex;
+  align-items: center;
 }
 </style>
