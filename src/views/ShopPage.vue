@@ -60,7 +60,7 @@ const totalPages = ref(1);
 const length = 5
 
 const searchText = ref('')
-const books = ([])
+const books = ref([])
 
 // // Comnputed
 
