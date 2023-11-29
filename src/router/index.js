@@ -15,6 +15,14 @@ const routes = [
     name: 'Home'
   },
   {
+    // Địa chỉ URL mặc định (gốc) của trang.
+    path: '/myOrders',
+    // Sử dụng component Home khi địa chỉ này được truy cập.
+    component: () => import('@/views/ordersHistory.vue'),
+    // Đặt tên cho route, dễ dàng sử dụng trong code khác.
+    name: 'myOrders'
+  },
+  {
     path: '/cart',
     name: 'cart',
     component: () => import('@/views/Cart.vue'),

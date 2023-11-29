@@ -51,10 +51,26 @@ function makeOrdersService() {
       return { message: 'đã xảy ra lỗi khi xóa sản phẩm trong giỏ hàng' }
     }
   }
+
+  async function createOrder(orderDatas) {
+    try {
+      const response = await fetch(`${baseUrl}/new`, {
+        method: 'POST',
+        headers,
+        body: JSON.stringify(orderDatas)
+      })
+
+      const data = await response.json()
+      return { ok: response.ok, data }
+    } catch (error) {
+      return { ok: false, message: 'Đã xảy ra lỗi khi gọi API mua hàng' }
+    }
+  }
   return {
     addToCart,
     getCartByUserId,
-    deleteCartItemById
+    deleteCartItemById,
+    createOrder
   }
 }
 
