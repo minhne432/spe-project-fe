@@ -15,6 +15,12 @@ const routes = [
     name: 'Home'
   },
   {
+    path: '/cart',
+    name: 'cart',
+    component: () => import('@/views/Cart.vue'),
+    props: (route) => ({ user_id: route.params.user_id })
+  },
+  {
     // Địa chỉ URL '/login'.
     path: '/admin',
     name: 'admin',

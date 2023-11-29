@@ -27,13 +27,23 @@
 
 <script setup>
 import { defineProps, ref } from 'vue';
-
+const $emit = defineEmits(["submit:order"]);
 const props = defineProps({
     initialBook: { type: Object, required: true },
 });
 
 
+
 const bookdetails = ref({ ...props.initialBook });
+const quantity = ref(1)
+
+function submitOrder() {
+    const orderDetails = {
+        bookDetails: bookdetails.value,
+        quantity: quantity.value,
+    };
+    $emit("submit:order", orderDetails);
+}
 </script>
 
 <style scoped>

@@ -20,23 +20,23 @@
           <!-- Home -->
           <li class="nav-links">
             <!-- <a :href="goToHome()"> -->
-              <router-link v-if="shouldShowLink" :to="{name:'Home'}">
-                            <i class="bx bx-home-alt icon"></i>
-                <span class="text nav-text">Home</span>
-              </router-link>
-                <router-link v-if="!shouldShowLink" :to="{ name: 'admin' }">
-                              <i class="bx bx-home-alt icon"></i>
-                  <span class="text nav-text">Home</span>
-                </router-link>
+            <router-link v-if="shouldShowLink" :to="{ name: 'Home' }">
+              <i class="bx bx-home-alt icon"></i>
+              <span class="text nav-text">Home</span>
+            </router-link>
+            <router-link v-if="!shouldShowLink" :to="{ name: 'admin' }">
+              <i class="bx bx-home-alt icon"></i>
+              <span class="text nav-text">Home</span>
+            </router-link>
 
             <!-- </a> -->
           </li>
-          <!-- Notification -->
+          <!-- cart -->
           <li class="nav-links">
-            <a href="#">
-              <i class="bx bx-bell icon"></i>
-              <span class="text nav-text">Notification</span>
-            </a>
+            <router-link :to="{ name: 'cart' }">
+              <i class="bx bx-cart icon"></i>
+              <span class="text nav-text">Cart</span>
+            </router-link>
           </li>
           <!-- Profile -->
           <li class="nav-links">
@@ -57,20 +57,20 @@
 
       <!-- Logout section -->
       <div class="footer">
-      <li v-if="!isLoggedIn">
-        <router-link :to="{name:'login'}">
-          <i class="bx bx-log-in icon"></i>
-          <span class="text nav-text">Login</span>
-        </router-link>
-      </li>
+        <li v-if="!isLoggedIn">
+          <router-link :to="{ name: 'login' }">
+            <i class="bx bx-log-in icon"></i>
+            <span class="text nav-text">Login</span>
+          </router-link>
+        </li>
 
-      <!-- Logout button -->
-      <li v-if="isLoggedIn">
-        <button @click="logout()" class="router-like-button">
-          <i class="bx bx-log-in icon"></i>
-          <span class="text nav-text">Logout</span>
-        </button>
-      </li>
+        <!-- Logout button -->
+        <li v-if="isLoggedIn">
+          <button @click="logout()" class="router-like-button">
+            <i class="bx bx-log-in icon"></i>
+            <span class="text nav-text">Logout</span>
+          </button>
+        </li>
       </div>
     </div>
   </nav>
@@ -78,39 +78,31 @@
 
 <script setup>
 import { computed, ref } from 'vue'
-import { useRouter } from 'vue-router';
-const router = useRouter();
+import { useRouter } from 'vue-router'
+const router = useRouter()
 const isSidebarOpen = ref(true)
 
 const toggleSidebar = () => {
   isSidebarOpen.value = !isSidebarOpen.value
 }
 
-const  shouldShowLink = computed(()=>{
-  const role_id = localStorage.getItem('role_id')!=2 ? true : false;
-  return role_id;
+const shouldShowLink = computed(() => {
+  const role_id = localStorage.getItem('role_id') != 2 ? true : false
+  return role_id
 })
 
-
-const isLoggedIn = ref(localStorage.getItem('isLoggedIn'));
+const isLoggedIn = ref(localStorage.getItem('isLoggedIn'))
 
 const logout = () => {
-
-  localStorage.removeItem('access_token');
-  localStorage.removeItem('fullname');
-  localStorage.removeItem('id');
-  localStorage.removeItem('phone_number');
-  localStorage.removeItem('address');
-  localStorage.removeItem('role_id');
-  localStorage.removeItem('isLoggedIn');
-  router.push({name:'Home'})
-
+  localStorage.removeItem('access_token')
+  localStorage.removeItem('fullname')
+  localStorage.removeItem('id')
+  localStorage.removeItem('phone_number')
+  localStorage.removeItem('address')
+  localStorage.removeItem('role_id')
+  localStorage.removeItem('isLoggedIn')
+  router.push({ name: 'Home' })
 }
-
-
-
-
-
 </script>
 
 <style>

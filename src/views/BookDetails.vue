@@ -3,6 +3,7 @@ import { ref } from "vue";
 import {  useRoute } from "vue-router";
 import SideBar  from '@/components/SideBar.vue';
 import BookCard from '@/components/BookCard.vue';
+import orderService from "../services/order.service";
 const props = defineProps({
     bookId: { type: String, required: true },
 });
@@ -21,7 +22,19 @@ async function getBook() {
     }
 }
 
-
+async function addToCart(details) {
+    const cartDetails = {
+        product_id: details.bookDetails.id,
+        quantity: details.quantity,
+        user_id: localStorage.getItem('id')
+    }
+    try {
+        await orderService.addToCart(cartDetails);
+        message.value = "Sách được cập nhật thành công.";
+    } catch (error) {
+        console.log(error);
+    }
+}
 
 getBook(props.bookId);
 </script>
@@ -29,7 +42,7 @@ getBook(props.bookId);
     <SideBar />
     <div v-if="book" class="page">
         <h4>Chi tiết sách</h4>
-        <BookCard :initial-book="book" />
+        <BookCard :initial-book="book" @submit:order="addToCart"/>
         <p>{{ message }}</p>
     </div>
 </template>
