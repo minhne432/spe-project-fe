@@ -40,17 +40,17 @@
           </li>
           <!-- Profile -->
           <li class="nav-links">
-            <a href="http://localhost:5173/user/">
+            <router-link :to="{ name: 'user.home' }">
               <i class="bx bx-user icon"></i>
               <span class="text nav-text">Profile</span>
-            </a>
+            </router-link>
           </li>
           <!-- Setting -->
           <li class="nav-links">
-            <a href="#">
-              <i class="bx bx-cog icon"></i>
-              <span class="text nav-text">Setting</span>
-            </a>
+            <router-link :to="{ name: 'myOrders' }">
+              <i class="bx bx-shopping-bag icon"></i>
+              <span class="text nav-text">Orders</span>
+            </router-link>
           </li>
         </ul>
       </div>
