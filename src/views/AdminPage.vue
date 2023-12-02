@@ -9,20 +9,24 @@
         <Search v-model="searchText" />
         <!-- main menus / order -->
         <div class="main-menus">
-
           <!-- List of books -->
           <div class="main-product">
             <h2 class="main-title">Chọn sách</h2>
-            <button @click="goToAddBook">
-              <i></i> Thêm mới
-            </button>
+            <button @click="goToAddBook"><i></i> Thêm mới</button>
             <!-- product wrapper -->
             <div class="product-wrapper">
-              <div v-for="book in filteredProducts.value" :key="book.id" class="product-list" @click="() => goToEditBook(book)">
-                <router-link :to="{
-                  name: 'book.edit',
-                  params: { id: book.id },
-                }"></router-link>
+              <div
+                v-for="book in filteredProducts"
+                :key="book.id"
+                class="product-list"
+                @click="() => goToEditBook(book)"
+              >
+                <router-link
+                  :to="{
+                    name: 'book.edit',
+                    params: { id: book.id }
+                  }"
+                ></router-link>
                 <img class="product-img" :src="book.thumbnail" />
                 <div class="product-desc">
                   <div class="product-name">
@@ -35,13 +39,16 @@
           </div>
 
           <!-- Pagination component -->
-          <Pagination :totalPages="totalPages" :currentPage="currentPage" :length="length"
-            @update:currentPage="handlePageChange" />
+          <Pagination
+            :totalPages="totalPages"
+            :currentPage="currentPage"
+            :length="length"
+            @update:currentPage="handlePageChange"
+          />
         </div>
       </div>
     </section>
   </div>
-
 </template>
 
 <script setup>
@@ -54,46 +61,55 @@ import Search from '@/components/SearchBar.vue'
 
 import booksService from '@/services/books.service'
 
-
-
 // Define the variables with `ref` if they're reactive
 const currentPage = ref(1)
-const totalPages = ref(1);
+const totalPages = ref(1)
 const length = 5
 
 const searchText = ref('')
-const books = ([])
+const books = ref([])
 
 // // Comnputed
 
-
 const searchableProducts = computed(() =>
   books.value.map((book) => {
-    const { id, name, price, thumbnail, categoryName } = book;
-    return [id, name, price, thumbnail, categoryName].join("");
+    const { id, name, price, thumbnail, categoryName } = book
+    return [id, name, price, thumbnail, categoryName].join('')
   })
-);
+)
 
 const filteredProducts = computed(() => {
   if (!searchText.value) {
     // const data = books.value;
-    const data = books;
+    const data = books.value
     console.log(data)
-    return data}
-    console.log(books.value)
-  return books.value.filter((books, index) => searchableProducts.value[index].includes(searchText.value)
-
-
-  );
-});
+    return data
+  }
+  console.log(books.value)
+  return books.value.filter((books, index) =>
+    searchableProducts.value[index].includes(searchText.value)
+  )
+})
 
 // Method
 const handlePageChange = (newPage) => {
   currentPage.value = newPage
 }
 
-const $router = useRouter();
+const $router = useRouter()
 
+async function retrieveBooks(page) {
+  try {
+    const chunk = await booksService.getBooks(page) // Gọi API để lấy danh sách sách
+    //console.log(chunk)
+    totalPages.value = chunk.metadata.lastPage ?? 1 // Cập nhật tổng số trang
+    //console.log(chunk.metadata.lastPage)
+    books.value = chunk.products // Lưu danh sách sách từ API vào biến books
+    console.log(books.value)
+  } catch (error) {
+    console.log(error) // Xử lý lỗi nếu có
+  }
+}
 const goToEditBook = (book) => {
   $router.push({
     name: 'book.edit',
@@ -103,31 +119,14 @@ const goToEditBook = (book) => {
 }
 
 function goToAddBook() {
-  $router.push({ name: "book.add" });
+  $router.push({ name: 'book.add' })
 }
-
-
-async function retrieveBooks(page) {
-  try {
-    const chunk = await booksService.getBooks(page); // Gọi API để lấy danh sách sách
-    //console.log(chunk)
-    totalPages.value = chunk.metadata.lastPage ?? 1; // Cập nhật tổng số trang
-    //console.log(chunk.metadata.lastPage)
-    books.value = chunk.products; // Lưu danh sách sách từ API vào biến books
-    console.log(books.value)
-  } catch (error) {
-    console.log(error); // Xử lý lỗi nếu có
-  }
-}
-
-
 
 // When this component is mounted, load the first page of contacts
-onMounted(() => retrieveBooks(1));
+onMounted(() => retrieveBooks(1))
 
 // When currentPage changes, fetch contacts for currentPage
-watchEffect(() => retrieveBooks(currentPage.value));
-
+watchEffect(() => retrieveBooks(currentPage.value))
 </script>
 
 <style>
@@ -236,9 +235,7 @@ html {
   box-shadow: rgba(176, 176, 176, 0.2) 0px 2px 8px 0px;
   cursor: pointer;
   transform: translateY(20px);
-  transition:
-    opacity 0.3s,
-    transform 0.3s;
+  transition: opacity 0.3s, transform 0.3s;
 }
 .product-list:hover {
   box-shadow: rgba(149, 157, 165, 0.2) 0 px 8px 24px;

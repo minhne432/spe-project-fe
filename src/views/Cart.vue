@@ -1,24 +1,26 @@
 <template>
   <SideBar />
-  <div class="cart-container">
-    <h1>Giỏ hàng của bạn</h1>
-    <button @click="showPurchaseModal = true">Mua hàng</button>
-    <ul class="cart-items">
-      <li v-for="(product, index) in cartItems" :key="index" class="cart-item">
-        <!-- Hiển thị thông tin của mỗi sản phẩm -->
-        <div class="product-info">
-          <img :src="product.thumbnail" class="product-image" />
-          <div class="product-details">
-            <p class="product-name">{{ product.name }}</p>
-            <p class="product-price">Giá: {{ product.price }}</p>
-            <p class="product-quantity">số lượng: {{ product.quantity }}</p>
+  <div class="home">
+    <div class="cart-container">
+      <h1>Giỏ hàng của bạn</h1>
+      <button @click="showPurchaseModal = true">Mua hàng</button>
+      <ul class="cart-items">
+        <li v-for="(product, index) in cartItems" :key="index" class="cart-item">
+          <!-- Hiển thị thông tin của mỗi sản phẩm -->
+          <div class="product-info">
+            <img :src="product.thumbnail" class="product-image" />
+            <div class="product-details">
+              <p class="product-name">{{ product.name }}</p>
+              <p class="product-price">Giá: {{ product.price }}</p>
+              <p class="product-quantity">số lượng: {{ product.quantity }}</p>
 
-            <!-- Các thông tin khác về sản phẩm -->
+              <!-- Các thông tin khác về sản phẩm -->
+            </div>
           </div>
-        </div>
-        <button @click="deleteItem(product.item_id)" class="red-button">Remove</button>
-      </li>
-    </ul>
+          <button @click="deleteItem(product.item_id)" class="red-button">Remove</button>
+        </li>
+      </ul>
+    </div>
   </div>
 
   <!-- Modal hiển thị thông tin mua hàng -->

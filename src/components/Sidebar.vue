@@ -7,7 +7,7 @@
         </span>
 
         <div class="text header-text">
-          <span class="name">Bookstore</span>
+          <span class="name">PerfumeShop</span>
         </div>
       </div>
 
@@ -47,7 +47,11 @@
           </li>
           <!-- Setting -->
           <li class="nav-links">
-            <router-link :to="{ name: 'myOrders' }">
+            <router-link v-if="shouldShowLink" :to="{ name: 'myOrders' }">
+              <i class="bx bx-shopping-bag icon"></i>
+              <span class="text nav-text">Orders</span>
+            </router-link>
+            <router-link v-else :to="{ name: 'admin.orders' }">
               <i class="bx bx-shopping-bag icon"></i>
               <span class="text nav-text">Orders</span>
             </router-link>

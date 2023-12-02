@@ -15,6 +15,11 @@ const routes = [
     name: 'Home'
   },
   {
+    path: '/admin/orders',
+    component: () => import('@/views/AdminOrders.vue'),
+    name: 'admin.orders'
+  },
+  {
     // Địa chỉ URL mặc định (gốc) của trang.
     path: '/myOrders',
     // Sử dụng component Home khi địa chỉ này được truy cập.
